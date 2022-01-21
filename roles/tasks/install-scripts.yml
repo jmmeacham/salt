@@ -1,0 +1,23 @@
+---
+- hosts: win
+
+  tasks:
+  - name: Copy File
+    win_copy:
+      src: C:\output.pdf
+      dest: C:\ansible_examples\
+      remote_src: yes
+
+- name: Installing Apache MSI
+  hosts: win
+
+  tasks:
+    - name: Download the Apache installer
+      win_get_url:
+        url: https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi
+        dest: C:\ansible_examples\httpd-2.2.25-win32-x86-no_ssl.msi
+
+    - name: Install MSI
+      win_package:
+        path: C:\ansible_examples\httpd-2.2.25-win32-x86-no_ssl.msi
+        state: present
